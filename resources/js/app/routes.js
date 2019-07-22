@@ -8,9 +8,10 @@ import PhotoUpload from './pages/photos';
 const routes = [
     { path: '/', component: Landing, name: 'landing-page' },
     { path: '/article/:id?', component: Landing, name: 'article' },
+    { path: '/article/category/:id?', component: Landing, name: 'category', props: ['id'] },
 
     { path: '/dashboard', component: Dashboard, name: 'dashboard' },
-    { path: '/new-article', component: NewArticle, name: 'new-article' },
+    { path: '/new-article/:id?', component: NewArticle, name: 'new-article' },
     { path: '/photo-upload', component: PhotoUpload, name: 'photo-upload' },
 
     { path: '/register', component: Register, name: 'register' },

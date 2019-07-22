@@ -74,9 +74,10 @@
                 })
                     .then((response) => {
                         setTimeout(() => {
-                            this.message = response.data.message;
-                            this.uploaded_photo_id = response.data.pid;
-                            console.log(this.uploaded_photo_id);
+                            this.message = response.message;
+                            this.uploaded_photo_id = response.pid;
+                            this.file_full_path = response.file;
+                            //console.log(this.uploaded_photo_id);
                             this.progressBar = 0;
                             this.isLoading = false;
                             this.reset();

@@ -24,16 +24,14 @@ Route::prefix('auth')->group(function () {
     Route::get('init', 'UserController@init');
 });
 
-Route::prefix('categories')->group(function () {
-    Route::get('/all', 'CategoryController@getCats');
-});
+Route::get('categories', 'CategoryController@getCats');
 
 Route::prefix('article')->group(function () {
     Route::get('/', 'ArticleController@getArticles');
-    //Route::get('/{id}', ['uses' =>'ArticleController@getArticlesByPaginate']);
+    Route::get('/category/{id}', ['uses' =>'ArticleController@getArticlesByCat']);
     Route::get('/all', ['uses' =>'ArticleController@getAllArticles']);
     Route::get('/featured', ['uses' =>'ArticleController@getFeaturedArticles']);
-    Route::put('/update-article', 'ArticleController@updateArticle');
+    Route::post('/update-article', 'ArticleController@updateArticle');
     Route::post('/create-article', 'ArticleController@createArticle');
 });
 

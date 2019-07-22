@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-5">
         <div class="card">
             <div class="card-header">
                 New Article Form
@@ -20,18 +20,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Category</label>
-                            <select v-model="category"
-                                    class="form-control"
-                                    v-bind:class="{ 'is-invalid': errorCategory }">
-                                <option disabled value="">Please select one</option>
-                                <option v-for="catTitle in catTitles" v-bind:value="catTitle.id">
-                                    {{catTitle.title}}
-                                </option>
-                            </select>
-                            <div class="invalid-feedback">
+                            <label>Categories</label>
+                            <ul>
+                                <li v-for="category in categories">
+                                    <input type="checkbox" v-model="user.roles" :value="category.id" :id="category.id">
+                                    <label :for="category.id">{{ category.title }}</label>
+                                </li>
+                            </ul>
+                            <!--                            <select v-model="category"
+                                                                class="form-control"
+                                                                v-bind:class="{ 'is-invalid': errorCategory }">
+                                                            <option disabled value="">Please select one</option>
+                                                            <option v-for="catTitle in catTitles" v-bind:value="catTitle.id">
+                                                                {{catTitle.title}}
+                                                            </option>
+                                                        </select>-->
+                            <!--<div class="invalid-feedback">
                                 {{ errorCategory }}
-                            </div>
+                            </div>-->
                         </div>
                         <div class="form-group">
                             <label>Content</label>
@@ -56,50 +62,34 @@
 </template>
 
 <script>
-    import axios from 'axios'
-
     export default {
         name: "new-article-frm",
         props: ['app'],
-        //props: ['app', 'toEdit'],
         data() {
             return {
-                category_id: '',
+                category_id: 1,
                 title: '',
-                category: '',
+                categories: '',
                 catTitles: '',
                 errorTitle: '',
                 errorCategory: '',
                 successMessage: '',
                 errorMessage: '',
                 content: '',
+                articleToEdit: '',
                 errorContent: '',
-                progressBar: 0,
-                message: '',
-                uploaded_photo: null,
-                isLoading: false,
-                file: '',
-                files: [],
-                baseUrl: BASE_URL,
-                uploaded_photo_id: '',
-                new_article: '',
                 errors: []
             }
         },
-
-
-        created() {
-            let $this = this;
-        },
-
         mounted() {
+            let $this = this;
             if (!this.app.user)
             {
                 this.app.$router.push({name:'login'});
             }
-            this.getCategs();
+            this.getCategs($this);
+            //console.log(this.toEdit);
         },
-
         filters: {
             shortTitle(value) {
                 return value.length > 6 ? value.substring(0, 6) + '...' : value;
@@ -108,66 +98,54 @@
                 return value.length > 35 ? value.substring(0, 35) + '...' : value;
             }
         },
-
         methods: {
-            getCategs () {
-                let $this = this;
-                axios.get( 'categories/all')
-                    .then((response) => {
-                        $this.catTitles = response.data;
-                        //console.log(this.catTitles);
-                    });
+            getCategs ($this) {
+                this.app.request.get('categories').then(function (response) {
+                    $this.app.loading = false;
+                    $this.categories = response.data;
+                    //console.log(response.data);
+                });
             },
             onSubmit() {
                 this.errors = [];
                 let $this = this;
-
                 if (!this.title && this.title.length < 6) {
                     this.errorTitle = 'Title min 6 chars.';
                     this.errors.push(this.errorTitle);
                 } else {
                     this.errorTitle = null;
                 }
-
-
                 if (!this.content && this.content.length < 35) {
                     this.errorContent = 'Content min 35 chars.';
                     this.errors.push(this.errorContent);
                 } else {
                     this.errorContent = null;
                 }
-
                 if (!this.errors.length) {
                     $this.app.loading = true;
-
-                    $this.isLoading = true;
-                    $this.message = '';
-
                     let data = {
-                        user_id: 1,
-                        category_id: $this.category,
+                        user_id: this.app.user.id,
+                        //category_id: this.category,
+                        featured: false,
                         picture: 5,
                         title: $this.title,
                         body: $this.content,
                     };
-
                     this.app.request.post('article/create-article', data).then(function (response) {
-
                         $this.app.loading = false;
-
-                        if (response.data.id) {
-                            $this.new_article = response.data;
-                            $this.app.$router.push({name: 'dashboard'});
-                        } else if (response.data.error) {
-                            console.log(response.data.error);
+                        if (response.data.id)
+                        {
+                            $this.successMessage = 'Article saved!';
+                            alert($this.successMessage);
+                            $this.app.$router.push({name:'dashboard'});
                         }
-
-                        console.log(data);
+                        else if (!empty(response.data.error))
+                        {
+                            $this.errorMessage = 'Something went wrong.';
+                            //console.log(response.data);
+                        }
                     });
                 }
-            },
-            reset() {
-                this.$refs.file.value = '';
             }
         }
     }

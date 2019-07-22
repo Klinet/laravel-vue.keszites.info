@@ -1,6 +1,17 @@
 <template>
-    <div class="row mt-5">
-        <form-upload :app="this"></form-upload>
+    <div class="container">
+        <header>
+            <div>
+                <b-navbar type="dark" variant="dark">
+                    <b-navbar-nav>
+                        <b-nav-item><router-link :to="{ name: 'dashboard' }" class="nav-link logo">Vissza</router-link></b-nav-item>
+                    </b-navbar-nav>
+                </b-navbar>
+            </div>
+        </header>
+        <div class="row mt-5">
+            <form-upload :app="this"></form-upload>
+        </div>
     </div>
 </template>
 

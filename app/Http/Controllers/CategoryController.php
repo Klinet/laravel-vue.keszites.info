@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Forum;
-use App\Post;
-use App\User;
+use App\Articles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
 
     public function getCats()
     {
-        $cats = Category::all();
+        $cat = new Category();
+        $cats = $cat->getAll();
         return response()->json($cats, 200);
     }
 

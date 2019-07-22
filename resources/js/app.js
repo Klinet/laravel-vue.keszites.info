@@ -9,12 +9,17 @@ import Store from './app/store';
 import Pagination from './app/plugins/pagination';
 import VueResource from 'vue-resource';
 import 'nprogress/nprogress.css';
-//Vue.component('InfiniteLoading', require('vue-infinite-loading'));
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(Pagination);
 Vue.use(VueResource);
 Vue.component('spinner', require('vue-simple-spinner'));
+Vue.use(BootstrapVue);
 
 const router = new VueRouter({
     routes: routes

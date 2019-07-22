@@ -1,6 +1,5 @@
 <template>
     <div>
-        <navbar :app="this"></navbar>
         <spinner class="bigSpinner"
                  size="massive"
                  line-fg-color="#4CAF50"
@@ -19,7 +18,6 @@
     import Navbar from "./components/navbar";
     import NProgress from 'nprogress';
     import Helper from '../utils/helper';
-
 
     export default {
         name: "app",
