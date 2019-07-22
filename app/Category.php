@@ -12,7 +12,7 @@ class Category extends Model
 
     public function articles()
     {
-        return $this->hasMany('App\Articles', 'category_id', 'id');
+
     }
 
     public function getAll()

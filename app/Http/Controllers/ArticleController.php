@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Photos;
 use Illuminate\Http\Request;
 use App\Articles;
 use App\Categories;
@@ -71,7 +72,7 @@ class ArticleController extends Controller
         $article->body = $request->body;
         $article->category_nums = $cat_nums;
         //$article->picture = $request->picture;
-        $article->picture = 5;
+        $article->picture = $request->picture;
         $article->title = $request->title;
         $article->featured = $request->featured;
         $article->user_id = $request->user_id;

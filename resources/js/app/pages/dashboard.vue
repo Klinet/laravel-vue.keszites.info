@@ -57,7 +57,7 @@
         </div>
     </header>
     <div class="row mt-5">
-        <h3>dashboard</h3>
+        <h3>Dashboard</h3>
         <table class="table table-hover table-inverse">
             <thead>
             <tr>

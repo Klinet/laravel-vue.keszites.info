@@ -5,15 +5,12 @@
                 Login Form
             </div>
             <div class="card-block">
-                <div class="card-header">
-                    <h3 class="card-title">Load an image Up!</h3>
-                </div>
                 <div class="card-body">
                     <form action="javascript:void(0)" @submit.prevent="uploadSubmit"
                             enctype="multipart/form-data" method="post">
                         <div class="alert alert-success" v-if="message">{{ message[0] }}</div>
                         <div class="form-group">
-                            <label for="photo">Choose a file</label>
+                            <label for="photo">Choose a file please and push the "Upload" button.</label>
                             <input type="file" class="form-control" id="photo" ref="file" name="file" @change="fileUpload($event.target)" required>
                         </div>
                         <div class="form-group">

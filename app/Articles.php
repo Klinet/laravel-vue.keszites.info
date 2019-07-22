@@ -16,7 +16,7 @@ class Articles extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Category', 'category_id');
+
     }
 
     public function photo()
@@ -30,7 +30,7 @@ class Articles extends Model
         $articles = DB::table($this->table)
             ->orderBy('created_at', 'DESC')
             ->join('photos', 'photos.id', '=', 'articles.picture')
-            ->select('photos.file_name', 'articles.id', 'articles.title', 'articles.body', 'articles.category_nums', 'articles.category_id', 'articles.featured', 'articles.created_at')
+            ->select('photos.file_name', 'articles.id', 'articles.title', 'articles.picture', 'articles.body', 'articles.category_nums', 'articles.featured', 'articles.created_at')
             ->offset($offset)
             ->limit($limit)
             ->get();
@@ -60,7 +60,7 @@ class Articles extends Model
         $articles = DB::table($this->table)
             ->orderBy('created_at', 'DESC')
             ->join('photos', 'photos.id', '=', 'articles.picture')
-            ->select('photos.file_name', 'articles.id', 'articles.title', 'articles.body', 'articles.category_nums', 'articles.category_id', 'articles.featured', 'articles.created_at')
+            ->select('photos.file_name', 'articles.id', 'articles.title', 'articles.body', 'articles.category_nums', 'articles.featured', 'articles.created_at')
             ->where('articles.category_nums', 'like', '%'.$cat_id.'%')
             ->offset($offset)
             ->limit($limit)

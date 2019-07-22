@@ -20,10 +20,10 @@
                                 <router-link :to="{ name: 'landing-page' }" class="nav-link logo"><img src="img/logo.png"
                                         alt=""></router-link>
                             </div>
-                            <ul class="nav-menu nav navbar-nav" v-if="!app.user">
+                            <ul class="nav-menu nav navbar-nav" v-if="!app.user" style="display: contents">
                                 <li :class="'cat-' + category.id" v-for="category in categories" v-bind:key="category.id"><a @click="clickCateg(category.id)" :class="{ active : active_el == category.id }">{{category.title}}</a></li>
                             </ul>
-                            <ul class="nav-menu nav navbar-nav" v-else>
+                            <ul class="nav-menu nav navbar-nav" v-else style="display: contents">
                                 <li class="cat-1">
                                     <router-link :to="{ name: 'new-article' }" class="dropdown-item">New article
                                     </router-link>
